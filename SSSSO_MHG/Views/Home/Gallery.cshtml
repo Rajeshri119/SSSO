@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = "Gallery";
+}
+<script src="~/Scripts/owl.carousel.js"></script>
+<style>
+    .link-1 {
+        transition: 0.3s ease;
+        color: #000000;
+        font-size: 15px;
+        text-decoration: none;
+        /*border-top: 4px solid #000000;
+        border-bottom: 4px solid #000000;*/
+        padding: 4px 0;
+        /*margin: 0 10px;*/
+    }
+
+        .link-1:hover {
+            border-top: 3px solid #ff6a00;
+            border-bottom: 3px solid #ff6a00;
+            padding: 4px 0;
+            color: #ff6a00;
+        }
+
+
+    #owl-demo .item {
+        margin: 3px;
+    }
+
+        #owl-demo .item img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+
+    /* End carousel */
+</style>
+
+
+<div class="content-holder">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading marginT">
+                <h1>Gallery</h1>
+            </div>
+
+
+            @{
+                List<string> imagesList = ViewBag.Images as List<string>;
+
+            }
+
+
+            <div class="col-xs-12" id="slider" style="margin-top:30px">
+
+
+                @*<div class="col-sm-4" id="Swachata-carousel-text"></div>*@
+                <div class="col-lg-3 photog-quck-link" >
+                    <ul style="margin:0; padding:0">
+                        @*, null, new { @class = "page-scroll" }*@
+                        <li class="btn link-1">@Html.ActionLink("Dharmakshetra", "Gallery", new { category = "Cat1" })</li>
+                        <li class="btn link-1">@Html.ActionLink("Swami Visits Maharashtra", "Gallery", new { category = "Cat2" })</li>
+                        <li class="btn link-1">@Html.ActionLink("Pictures of Swami", "Gallery", new { category = "Cat3" })</li>
+                        <li class="btn link-1">@Html.ActionLink("Rare Pictures of Swami", "Gallery", new { category = "Cat4" })</li>
+                        @*<li>@Html.ActionLink("Category 3", "Gallery", new { category = "Cat3" })</li>*@
+                    </ul>
+
+                </div>
+                <div class="container col-sm-8">
+                    <div class="" id="myCarousel">
+                        <h3 id="header_name" style="text-align: center;">@ViewBag.headingname</h3>
+                        <div class="carousel slide " id="slide-mobile-content">
+                            <!-- Carousel items -->
+                            <div class="carousel-inner">
+                                @{
+                                    int i = 0;
+
+
+                                    foreach (var item in imagesList)
+                                    {
+                                        var imageContent = item.Split(';');
+                                        if (i == 0)
+                                        {
+                                            <div class="active item" data-slide-number=0>
+                                                <img src="@imageContent[0]"alt="Sri Sathya Sai Baba">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="item" data-slide-number=@( "" + i)>
+                                                <img src="@imageContent[0]" alt="Sri Sathya Sai Baba">
+                                            </div>
+                                        }
+
+                                        i = i + 1;
+                                    }
+                                }
+
+
+
+                            </div><!-- Carousel nav -->
+                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <!--/Slider-->
+                    <div class="hidden-xs">
+                        <div id="owl-demo" class="">
+                            @{
+                                int j = 0;
+                                foreach (var item in imagesList)
+                                {
+                                    var imageContent = item.Split(';');
+                                    <div class="item"><a class="thumbnail" id=@( "carousel-selector-" + j)><img src="@imageContent[0]" alt="Sri Sathya Sai Baba" class="img-thumbnail" width="170" height="50"></a></div>
+
+                                    j = j + 1;
+                                }
+                            }
+
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+
+
+        <script>
+            jQuery(document).ready(function ($) {
+
+                $("#owl-demo").owlCarousel({
+
+                    autoPlay: 1500,
+                    navigation: true,
+                    items: 4,
+                    itemsDesktop: [1199, 3],
+                    itemsDesktopSmall: [979, 3]
+
+                });
+
+                $('#myCarousel').carousel({
+                    interval: 3000
+                });
+
+
+                //Handles the carousel thumbnails
+                $('[id^=carousel-selector-]').click(function () {
+                    var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+                    var id = parseInt(id);
+
+                    $('#myCarousel').carousel(id);
+                });
+
+
+
+                $('.carousel-control').click(function (e) {
+                    e.stopPropagation();
+                    var goTo = $(this).data('slide');
+                    if (goTo == "prev") {
+                        $('#myCarousel').carousel('prev');
+                    } else {
+                        $('#myCarousel').carousel('next');
+                    }
+                });
+            });</script>
+    </div>
+    </div>

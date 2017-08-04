@@ -1,0 +1,280 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+
+
+<script>
+    $(document).ajaxError(function (e, jqxhr, settings, exception) {
+        //alert("i m here");
+        if (jqxhr.readyState == 0 || jqxhr.status == 0) {
+            return; //Skip this error
+        }
+    });
+</script>
+
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="~/Images/CorousalPictures/01.jpg" alt="Sathya Deep in Dharmakshetra,Mumbai,Maharashtra"style="width:100%">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Slide 1</h1>
+
+                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Images/CorousalPictures/02.jpg" style="width:100%" data-src="" alt="Bhagwaan Sri Sathya Sai Baba,Maharashtra and Goa,Dharmakshetra,Mumbai">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Slide 2</h1>
+
+                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Images/CorousalPictures/03.jpg" style="width:100%" data-src="" alt="Golden Statue of Sri Satya Sai Baba,Maharashtra and Goa,Dharmakshetra">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Slide 3</h1>
+                    <p></p>
+                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Images/CorousalPictures/04.jpg" style="width:100%" data-src="" alt="Sri Sathya Sai Baba,Maharashtra and Goa,Dharmakshetra">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Slide 4</h1>
+
+                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+<div class="container-fluid">
+    <div class="row" style="background:#f4f5f5;">
+        <div class="quick-link-holder">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-3 col-sm-6 col-xs-12 col-sm-6 col-xs-12 form-group">
+                        <a href="~/Home/FourWings/sociocare" class="hvr-sweep-to-top">
+                            <div class="services">
+                                <img src="~/Images/images/Hands_with_world.png" alt="Sociocare,SOCIAL SERVICE WING ,Maharashtra and Goa ,Dharmakshetra" />
+                                <h4>SOCIO CARE</h4>
+                                <h5>SOCIAL SERVICE WING</h5>
+                                <p>“Service is divine - It makes life worthwhile.”</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 col-sm-6 col-xs-12 form-group">
+                        <a href="~/Home/FourWings/medicare" class="hvr-sweep-to-top">
+                            <div class="services">
+                                <img src="~/Images/images/Plus_love.png" alt="Medicare,MEDICAL WING,Maharashtra and Goa ,Dharmakshetra" />
+                                <h4>MEDI CARE</h4>
+                                <h5>MEDICAL WING</h5>
+                                <p>“Hands that serve are holier than lips that pray”</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 form-group">
+                        <a href="~/Home/FourWings/educare" class="hvr-sweep-to-top">
+                            <div class="services">
+                                <img src="~/Images/images/book.png" alt="EDUCARE,EDUCATION WING,Maharashtra and Goa ,Dharmakshetra" />
+                                <h4>EDUCARE</h4>
+                                <h5>EDUCATION WING</h5>
+                                <p>“Education is not for mere living, it is for life”</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 form-group">
+                        <a href="~/Home/FourWings/spiritualcare" class="hvr-sweep-to-top">
+                            <div class="services">
+                                <img src="~/Images/images/Lotus.png" alt="SPIRITUAL CARE,SPIRITUAL WING,Maharashtra and Goa ,Dharmakshetra"/>
+                                <h4>SPIRITUAL CARE</h4>
+                                <h5>SPIRITUAL WING</h5>
+                                <p>“Silence is the speech of the spiritual seeker”</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container-fluid quote " id="UpcomingEvents">
+    <h1>@ViewBag.Quote<br /> <span>@ViewBag.Reference</span></h1>
+</div>
+
+
+<div class="container margin-top-30">
+    <div class="row form-group">
+        <h3 class="text-center">UPCOMING EVENTS</h3>
+    </div>
+    <div class="row text-center form-group dropdown">
+        <select id="district_upc_eve" selectOnTab="true" data-live-search="true" class="selectpicker"></select>
+    </div>
+    <div class="row form-group margin-top-50">
+        <div id="owl-demo" class="owl-carousel"></div>
+    </div>
+</div>
+
+<script>
+    jQuery(document).ready(function () {
+
+        function addUpcomingEvents(district_id) {
+
+
+            //$('#owl-demo').empty();
+
+            if ($("#owl-demo").data('owlCarousel') != null) {
+                $("#owl-demo").data('owlCarousel').destroy();
+                $('#owl-demo').empty();
+            }
+
+            //alert(district_id);
+            $.ajax({
+                url: "@Url.Action("GetUpcomingEvents", "Events")",
+                data: { district_id: district_id },
+                dataType: "json",
+                type: "GET",
+                error: function (err) {
+
+                    alert("An unexpected error has occured. Please contact your system administrator");
+                },
+                success: function (data) {
+                    $.each(data, function (i) {
+                        var $items1 = $("<div class='item col-md-12'><div class='lazyOwl' alt='Lazy Owl Image'><div class='col-xs-4'><label class='event-date'>" + data[i].day + "</label></div><div class='col-xs-8 event-name'><a href='" + data[i].link + "' >" + data[i].eventname + "</a><p>" + data[i].month + ", " + data[i].year + "</p></div>");
+
+                        $('#owl-demo').append($items1);
+
+
+                    });
+                    $("#owl-demo").owlCarousel({
+                        items: 4,
+                        lazyLoad: true,
+                        navigation: true
+
+                    });
+                }
+            });
+
+
+        }
+
+        //invoke when page load to upcoming events of all districts
+        addUpcomingEvents(999);
+
+        /**Autopopulate the districts dropdown menu**/
+        $.ajax({
+            url: "@Url.Action("GetDistrictList", "Events")",
+            dataType: "json",
+            type: "GET",
+            success: function (data) {
+                var optionhtml = "";
+                $.each(data, function (i) {
+                    optionhtml += '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                });
+
+                $('#district_upc_eve').selectpicker();
+                $('#district_upc_eve').html(optionhtml);
+                $('#district_upc_eve').selectpicker('render').selectpicker('refresh');
+
+
+            }
+        });
+
+        //on change function i need to control selected value
+        $('select.selectpicker').on('change', function () {
+            var selected = $('.selectpicker option:selected').val();
+            //alert(selected);
+            addUpcomingEvents(selected);
+        });
+
+    })</script>
+
+
+<div class="container margin-top-50">
+    <div class="row">
+        <h3 class="text-center">GALLERY</h3>
+    </div>
+    <div class="row margin-top-30">
+
+        <div class="col-md-3 col-sm-6 form-group">
+            <div class="gall_img_holder">
+                <img src="~/Images/images/gallery_1.jpg"alt="Sathya Deep at dharmakshetra,mumbai,maharashtra" class="lazyOwl img-responsive">
+                <div class="btn-holder"><button class="butt btn-success btn" onclick="location.href='@Url.Action("Gallery", "Home",new {category="Cat1"})'">View more</button></div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 form-group">
+            <div class="gall_img_holder">
+                <img src="~/Images/images/gallery_2.jpg" alt="Sri Sathya Saibaba,Dharmakshetra,mumbai,maharashtra and goa" class="lazyOwl img-responsive">
+                <div class="btn-holder"><button class="butt btn-success btn" onclick="location.href='@Url.Action("Gallery", "Home",new {category="Cat2"})'">View more</button></div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 form-group">
+
+            <div class="gall_img_holder">
+                <img src="~/Images/images/gallery_3.jpg" alt="Sri Sathya Saibaba" class="lazyOwl img-responsive">
+                <div class="btn-holder"><button class="butt btn-success btn" onclick="location.href='@Url.Action("Gallery", "Home",new {category="Cat3"})'">View more</button></div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 form-group">
+            <div class="gall_img_holder">
+                <img src="~/Images/images/gallery_4.jpg" alt="Sri Sathya Saibaba" class="lazyOwl img-responsive">
+                <div class="btn-holder"><button class="butt btn-success btn" onclick="location.href='@Url.Action("Gallery", "Home",new {category="Cat4"})'">View more</button></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- Include js plugin -->
+@*<!- this is for owl carousal -->*@
+<script src="~/Scripts/owl.carousel.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+
+    });
+
+    $('#nav').affix({
+        offset: {
+            top: $('header').height()
+        }
+    });
+
+
+
+</script>
+@*</body>
+    </html>*@
+
+@*/********************END**********************************/*@
+
+
+

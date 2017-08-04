@@ -1,0 +1,762 @@
+﻿
+@{
+    ViewBag.Title = "Events";
+}
+@Styles.Render("~/Content/dataTables")
+@Scripts.Render("~/bundles/dataTables")
+
+<link rel="stylesheet" href="~/Content/themes/base/datepicker.css">
+<link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css">
+
+
+
+<style>
+    .event a {
+        background-color: #42B373 !important;
+        background-image: none !important;
+        color: #ffffff !important;
+    }
+
+    table#event_result td:nth-child(3) {
+        display: none;
+    }
+
+    table#event_result td:nth-child(4) {
+        display: none;
+    }
+
+    /*, td:nth-child(4)*/
+</style>
+
+<input type="hidden" id="refreshed" value="no">
+
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $(document).ajaxError(function(e, jqxhr, settings, exception) {
+            //alert("i m here");
+            if (jqxhr.readyState == 0 || jqxhr.status == 0) {
+                return; //Skip this error
+            }
+        });
+
+        onload=function(){
+            var e=document.getElementById("refreshed");
+            if(e.value=="no")e.value="yes";
+            else{e.value="no";location.reload();}
+        }
+
+        var district_id=999;    //All districts
+        var samithi_id=999;     //All samithies
+        var event_category=999; //All event categories
+
+        var alreadySearched = @ViewBag.isSearched.ToString().ToLower();
+
+        var dist_name='All Districts';
+        var sam_name='All Samithies';
+        var cat_name= 'All Categories'
+        var fd='';
+        var td='';
+
+        if (alreadySearched == true)        {
+
+
+            dist_name='@ViewBag.District';
+            sam_name='@ViewBag.Samithi';
+            cat_name='@ViewBag.Category';
+            fd='@ViewBag.frmDate';
+            td='@ViewBag.toDate';
+            district_id='@ViewBag.dist_id';
+            samithi_id='@ViewBag.sam_id';
+            event_category='@ViewBag.cat_id';
+
+            if(district_id == 999)
+                dist_name = 'All Districts';
+            if(samithi_id == 999)
+                sam_name = 'All Samithies';
+            if(event_category == 999)
+                cat_name = 'All Categories';
+
+            if(district_id == 0)
+            {
+                dist_name = "State Level";
+                sam_name= "State Level";
+                //cat_name = 'All Categories';
+                //$('#samithi').attr("disabled",true);
+
+            }
+
+            
+            $('.selectpicker').selectpicker('render').selectpicker('refresh');
+
+
+
+            // alert(dist_name+" "+sam_name+" "+cat_name+" "+fd+" "+td+" "+district_id+" "+samithi_id+" "+event_category);
+        }
+
+
+
+        //hiding the result table
+        $('#event_result').wrap('<div id="hide" style="display:none" />');
+
+        /**
+        Autopopulate the districts dropdown menu
+            **/
+        $.ajax({
+            url: "@Url.Action("GetDistrictList", "Events")",
+            dataType: "json",
+            type: "GET",
+            error: function (err) {
+                alert("AJAX error in request: " + JSON.stringify(err, null, 2));
+            },
+            success: function (data) {
+                var optionhtml;
+                if(alreadySearched == true)
+                {
+                    if(district_id == "999")
+                    {
+                        optionhtml="<option value='999' selected>All Districts</option>"
+                        $.each(data, function (i) {
+                            optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                        });
+                    }
+                    else
+                    {
+                        optionhtml="<option value='999'>All Districts</option>"
+                        $.each(data, function (i) {
+                            if(data[i].Value == district_id)
+                                optionhtml += '<option value="' + data[i].Value + ' " selected>' +data[i].Text + '</option>';
+                            else
+                                optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                        });
+                    }
+
+                }
+                else
+                {
+                    optionhtml="<option value='999'>All Districts</option>";
+                    $.each(data, function (i) {
+                        optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                    });
+                }
+                $('#district').selectpicker();
+                $('#district').html(optionhtml);
+                $('#district').selectpicker('render').selectpicker('refresh');
+            }
+        });
+
+
+        //by default: district has All Districts, So Samithi and Categories should have all samities and respectie categories
+
+        var selectpicker = $('#samithi');
+        selectpicker.selectpicker();
+        selectpicker.selectpicker({title: 'All Samithies'}).selectpicker('render');
+        html = '';
+        selectpicker.html(html);
+        selectpicker.selectpicker("refresh");
+        samithi_id = "999";
+
+        $.ajax({
+            url: "@Url.Action("GetCategoryList", "Events")",
+            data: { d_id: district_id , s_id : samithi_id},
+        dataType: "json",
+        type: "GET",
+        error: function (err) {
+            alert("AJAX error in request: " + JSON.stringify(err, null, 2));
+        },
+        success: function (data) {
+            var optionhtml="<option value='999'>All Categories</option>";
+            $.each(data, function (i) {
+
+                optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+
+
+            });
+            $('#category').selectpicker();
+            $('#category').html(optionhtml);
+            $('#category').selectpicker('render').selectpicker('refresh');
+
+        }
+    });
+
+
+
+        /**
+        //This function populates the value of samithi dropdown when a district is selected
+        **/
+        $('#district').on('change', function () {
+
+            var selectedval = $('#district option:selected').val();
+            district_id = selectedval;
+            samithi_id = "999";
+            event_category = "999";
+
+            dist_name = $("#district option[value='"+selectedval+"']").text();
+            sam_name = "All Samithies";
+            cat_name = "All Categories";
+
+            if(district_id == 0)    //state level events, samithi is state level
+            {
+
+                var selectpicker = $('#samithi');
+                selectpicker.selectpicker();
+                selectpicker.selectpicker({title: 'State Level Events'}).selectpicker('render');
+                html = '';
+                selectpicker.html(html);
+                selectpicker.selectpicker("refresh");
+                samithi_id = "0";
+
+                var selectpicker2 = $('#category');
+                selectpicker2.selectpicker();
+                selectpicker2.selectpicker({title: 'All Categories'}).selectpicker('render');
+                html = '';
+                selectpicker2.html(html);
+                selectpicker2.selectpicker("refresh");
+                event_category = "999";
+
+            }
+            else if(district_id == 999)    //All districts, samithi is all samithies
+            {
+
+                var selectpicker = $('#samithi');
+                selectpicker.selectpicker();
+                selectpicker.selectpicker({title: 'All Samithies'}).selectpicker('render');
+                html = '';
+                selectpicker.html(html);
+                selectpicker.selectpicker("refresh");
+                samithi_id = "999";
+
+                var selectpicker2 = $('#category');
+                selectpicker2.selectpicker();
+                selectpicker2.selectpicker({title: 'All Categories'}).selectpicker('render');
+                html = '';
+                selectpicker2.html(html);
+                selectpicker2.selectpicker("refresh");
+                event_category = "999";
+
+
+            }
+            else     //other districts
+            {
+                //$('#samithi').attr("disabled",false);
+                $('#samithi').empty();
+                var selectpicker = $('#samithi');
+                selectpicker.selectpicker();
+                selectpicker.selectpicker({title: 'All Samithies'}).selectpicker('render');
+                html = '';
+                selectpicker.html(html);
+                selectpicker.selectpicker("refresh");
+                samithi_id = "999";
+
+                $.ajax({
+                    url: "@Url.Action("GetSamithiList", "Events")",
+                    data: { selectedValue: selectedval },
+                    dataType: "json",
+                    type: "POST",
+                    error: function (err) {
+                        alert("AJAX error in request: " + JSON.stringify(err, null, 2));
+                    },
+                    success: function (data) {
+                        var optionhtml="<option value='999'>All Samithies</option><option value='0'>District Level</option>";
+                        $.each(data, function (i) {
+
+                            optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+
+
+                        });
+                        $('#samithi').selectpicker();
+                        $('#samithi').html(optionhtml);
+                        $('#samithi').selectpicker('render').selectpicker('refresh');
+
+                    }
+                });
+            }
+
+            /**
+   populate the event CaTEGORY dropdown menu
+   **/
+
+            $('#category').empty();
+            var selectpicker2 = $('#category');
+            selectpicker2.selectpicker();
+            selectpicker2.selectpicker({title: 'All Categories'}).selectpicker('render');
+            html = '';
+            selectpicker2.html(html);
+            selectpicker2.selectpicker("refresh");
+            event_category = "999";
+
+            
+            $.ajax({
+                url: "@Url.Action("GetCategoryList", "Events")",
+                data: { d_id: district_id , s_id : samithi_id},
+                dataType: "json",
+                type: "GET",
+                error: function (err) {
+                    alert("AJAX error in request: " + JSON.stringify(err, null, 2));
+                },
+                success: function (data) {
+                    var optionhtml="<option value='999'>All Categories</option>";
+                    $.each(data, function (i) {
+
+                        optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+
+
+                    });
+                    $('#category').selectpicker();
+                    $('#category').html(optionhtml);
+                    $('#category').selectpicker('render').selectpicker('refresh');
+
+                }
+            });
+
+        });
+        ////populate the default value on samithi dropown
+        //var htmltext1 = sam_name + ' <span class="caret"></span>';
+        //$('#samithi_menu').closest('.dropdown').find('.dropdown-toggle').html(htmltext1);
+
+
+
+        if(alreadySearched == true)
+        {
+            $.ajax({
+                url: "@Url.Action("GetSamithiList", "Events")",
+                data: { selectedValue: district_id },
+                dataType: "json",
+                type: "POST",
+                error: function (err) {
+                    alert("AJAX error in request: " + JSON.stringify(err, null, 2));
+                },
+                success: function (data) {
+                    var optionhtml;
+                    if(samithi_id == "999")
+                    {
+                        optionhtml="<option value='999' selected>All Samithies</option>";
+                        $.each(data, function (i) {
+                            optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                        });
+                    }
+                    else
+                    {
+                        optionhtml="<option value='999'>All Samithies</option>";
+                        $.each(data, function (i) {
+                            if(data[i].Value == samithi_id)
+                                optionhtml += '<option value="' + data[i].Value + '" selected>' +data[i].Text + '</option>';
+                            else
+                                optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                        });
+                    }
+
+                    $('#samithi').selectpicker();
+                    $('#samithi').html(optionhtml);
+                    $('#samithi').selectpicker('render').selectpicker('refresh');
+
+                }
+            });
+
+            $.ajax({
+                url: "@Url.Action("GetCategoryList", "Events")",
+                data: { d_id: district_id , s_id : samithi_id},
+                dataType: "json",
+                type: "POST",
+                error: function (err) {
+
+                    alert("AJAX error in request: " + JSON.stringify(err, null, 2));
+                },
+                success: function (data) {
+                    var optionhtml;
+                    if(event_category == "999")
+                    {
+                        optionhtml="<option value='999' selected>All Categories</option>";
+                        $.each(data, function (i) {
+                            optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                        });
+                    }
+                    else
+                    {
+                        optionhtml="<option value='999'>All Categories</option>";
+                        $.each(data, function (i) {
+                            if(data[i].Value == event_category)
+                                optionhtml += '<option value="' + data[i].Value + '" selected>' +data[i].Text + '</option>';
+                            else
+                                optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+                        });
+                    }
+                    $('#category').selectpicker();
+                    $('#category').html(optionhtml);
+                    $('#category').selectpicker('render').selectpicker('refresh');
+
+                }
+            });
+
+        }
+
+        /**
+        //This function populates the value of events category dropdown when a samithi is selected
+        **/
+        $('#samithi').on('change', function () {
+            //var selectedval = $(this).text();
+            var selectedval = $('#samithi option:selected').val();
+
+            samithi_id = selectedval;
+            sam_name = $("#samithi option[value='"+selectedval+"']").text();
+            event_category="999";
+
+            $.ajax({
+                url: "@Url.Action("GetCategoryList", "Events")",
+                data: { d_id: district_id , s_id : samithi_id},
+                dataType: "json",
+                type: "POST",
+                error: function (err) {
+
+                    alert("AJAX error in request: " + JSON.stringify(err, null, 2));
+                },
+                success: function (data) {
+                    var optionhtml="<option value='999'>All Categories</option>";
+                    $.each(data, function (i) {
+
+                        optionhtml += '<option value="' + data[i].Value + '">' +data[i].Text + '</option>';
+
+
+                    });
+                    $('#category').selectpicker();
+                    $('#category').html(optionhtml);
+                    $('#category').selectpicker('render').selectpicker('refresh');
+
+                }
+            });
+
+        });
+
+        /**
+        //This function populates the value of events category id when it is selected
+        **/
+        $('#category').on('change', function () {
+            var selectedval = $('#category option:selected').val();
+            //var selectedval = $(this).attr('id');
+
+            event_category = selectedval;
+            cat_name = $("#category option[value='"+selectedval+"']").text();
+            //alert(district_id + " " + samithi_id + " " + event_category);
+
+
+        });
+
+        /**
+        //This function populates the datepicker for the event date range
+        **/
+        var highlightdates = {};
+        var tooltiptext = {};
+        $.ajax({                //get the festival list from database
+            url: "@Url.Action("GetFestivalList", "Events")",
+            dataType: "json",
+            type: "GET",
+            error: function (err) {
+                alert("AJAX error in request: " + JSON.stringify(err, null, 2));
+            },
+            success: function (data) {
+                $.each(data, function (i) {
+                    highlightdates[new Date(data[i].date)] = new Date(data[i].date);
+                    tooltiptext[new Date(data[i].date)] = data[i].text;
+
+
+                });
+            }
+        });
+
+
+
+        $("#from_date,#to_date").datepicker(
+        {
+            //showOn: "both",
+            buttonImageOnly: true,
+            showOtherMonths: true,
+            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            dateFormat: "dd-mm-yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-15:+15",
+            //beforeShowDay: function (date) {
+
+            //    var highlight = highlightdates[date];
+            //    if (highlight) {
+
+            //        return [true, "event", tooltiptext[date]];  //tooltip not working
+            //    }
+            //    else
+            //        return [true, "", ""];
+            //}
+
+
+        }
+        );
+
+
+
+        $("[type='date']").on('mouseenter', function () {
+            $(this).tooltip();
+        });
+
+        $('#from_date').val(fd);
+        // $('#from_date').datepicker();
+        $('#to_date').val(td);
+        ///$('#to_date').datepicker();
+        /*datatable*/
+
+
+
+        jQuery("#Search").on('click',function (e) {
+
+            e.preventDefault();
+
+            var district = district_id;
+            var samithi = samithi_id;
+            var category = event_category;
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+
+
+
+
+            var oTable = $('#event_result').dataTable(
+            {
+                "processing": true,
+                "serverSide": true,
+                "deferRender": true,
+                "lengthChange": false,
+                "bAutoWidth": false,
+                "displayLength": 10,
+                "pageLength": 10,
+                "bFilter": false,
+                "destroy": true,
+                "order":[],
+                "columns": [
+                { "data": "eventDate", "targets": 0 ,"orderable":false},
+                { "data": "eventDesc", "targets": 1 ,"orderable":false},
+                { "data": "eventid", visible: false, className: 'none',"targets": 2 },
+                { "data": "eventMonthYear", "targets": 3, visible: false, className: 'none' }
+                //{ "type": "date", "targets": 0 }
+
+
+                ],
+
+                "ajax": {
+                    "url": '@Url.Action("GetEvents", "Events")',
+                    "dataSrc": "data",
+                    "data": {
+                        district: district,
+                        samithi: samithi,
+                        category: category,
+                        from_date: from_date,
+                        to_date: to_date,
+                        dist_name: dist_name,
+                        sam_name: sam_name,
+                        cat_name: cat_name
+                    },
+                    //dataType: "json",
+                    //type: "POST",
+                    error: function (err) {
+                        //alert("AJAX error in request: " + JSON.stringify(err, null, 2));
+                    }
+                },
+
+
+                "columnDefs": [
+
+                {
+                    "render": function (data, type, row) {
+                        var dateSplit = data.split('-');
+                        return type === "display" || type === "filter" ?
+                        dateSplit[2] + '-' + dateSplit[1] + '-' + dateSplit[0] :
+                        data;
+
+                    },
+                    "targets": 0
+                },
+                {
+                    "render": function (data, type, row) {
+                        //alert(row.eventDate);
+                        var dateSplit = (row.eventDate).split('-');
+
+                        return "<a href='/Home/EventDetail/" + row.eventid + dateSplit[2] + dateSplit[1] + dateSplit[0] + "'>" + data + '</a>';
+                    },
+                    "targets": 1
+                },
+
+                { "visible": false, "targets": 2 },
+                { "visible": false, "targets": 3 }
+                ],
+
+
+
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
+
+                    api.column(3, { page: 'current' }).data().each(function (group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before(
+                            '<tr class="group "><td colspan="4"><strong class="text-center">' + group + '</strong></td></tr>'
+                            );
+
+                            last = group;
+                        }
+                    });
+                }
+
+            });
+
+            $('#hide').css('display', 'block');
+
+
+        });
+
+
+
+        if(alreadySearched == true)
+        {
+            $( "#Search" ).trigger( "click" );
+            //oTable.ajax.reload();
+        }
+
+
+
+
+        $('#from_date').change(function () {
+
+            var frm_date = $('#from_date').datepicker("getDate");
+
+            if (frm_date != null) {
+                $('#to_date').datepicker("option", "minDate", frm_date);
+                $('#to_date').datepicker();
+            }
+            else {
+                $('#to_date').datepicker("option", "minDate", "-100y");
+                $('#to_date').datepicker();
+            }
+        });
+
+        $('#to_date').change(function () {
+
+            var to_date = $('#to_date').datepicker("getDate");
+
+            if (to_date != null) {
+                $('#from_date').datepicker("option", "maxDate", to_date);
+                $('#from_date').datepicker();
+            }
+            else {
+                $('#from_date').datepicker("option", "maxDate", "+100y");
+                $('#from_date').datepicker();
+            }
+        });
+
+    });
+</script>
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+    @*container for the form*@
+    <div class="panel panel-default col-sm-8">
+        <div class="panel-heading">Search Events:</div>
+        <div class="panel-body">
+            <form>
+                <div class="form-group row">
+                    @*contains the district label and dropdown for district*@
+                    <label for="district" class="col-sm-3">District:</label>
+                    <div class="dropdown col-sm-8">
+                        @*<button id="district" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                All Districts
+                                <span class="caret"></span>
+                            </button>
+                            <ul id="district_menu" class="dropdown-menu pre-scrollable"></ul>*@                 @*list will be autopopulated which document loads using ajax*@
+
+                            <select id="district" selectOnTab="true" data-live-search="true" class="selectpicker" ></select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @*contains the samithi label and dropdown for samithi*@
+                        <label for="samithi" class="col-sm-3">Samithi:</label>
+                        <div class="dropdown col-sm-8">
+                            @*<button id="samithi" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    All Samithies
+                                    <span class="caret"></span>
+                                </button>
+                                <ul id="samithi_menu" class="dropdown-menu pre-scrollable"></ul>   *@
+
+
+                            <select id="samithi" selectOnTab="true" data-live-search="true" class="selectpicker" ></select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @*contains the event category label and dropdown for event category*@
+                        <label for="category" class="col-sm-3">Event Category:</label>
+                        <div class="dropdown col-sm-8">
+                            @*<button id="category" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    All Event Categories
+                                    <span class="caret"></span>
+                                </button>
+                                <ul id="category_menu" class="dropdown-menu"></ul>*@                 @*list will be autopopulated which document loads using ajax*@
+                                <select id="category" selectOnTab="true" data-live-search="true" class="selectpicker" ></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @*contains the dates between*@
+                            <div class="ui-datepicker-group">
+                                <label for="from_date" class="col-sm-3">Dates from :</label>
+                                <div class="col-sm-4">
+                                    <input id="from_date" placeholder="Select a date" readonly />
+                                </div>
+
+                                <label for="to_date" class="col-sm-1">To</label>
+                                <div class="col-sm-3">
+                                    <input id="to_date" placeholder="Select a date" readonly />
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            @*button for finding*@
+                            <button id="Search" type="button" class="btn btn-primary">Search</button>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            @*Container for the search result*@
+            <table id="event_result" class="table table-bordered " cellspacing="0" width="100%">
+
+                <thead>
+                    <tr>
+                        <th width="20%">Event date</th>
+                        <th width="80%">Details</th>
+                        <th style="display:none;">event id</th>
+                        <th style="display:none;">month</th>
+
+                    </tr>
+                </thead>
+
+
+                <tbody id="event_body"></tbody>
+
+            </table>
+        </div>

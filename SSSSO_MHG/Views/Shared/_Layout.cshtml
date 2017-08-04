@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SSSSO-MH</title>
+    @RenderSection("AdditionalMeta", false)
+
+    <!-- Important Owl stylesheet: owl.carousel.css -->
+    <!-- Default Theme: owl.theme.css -->
+    @*@Styles.Render("~/Content/owl")*@
+    <!-- Hover.css -->
+    @*@Styles.Render("~/Content/hover")*@
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/moment")
+    @Styles.Render("~/Content/fontawesome")
+    @*@Styles.Render("~/Content/selectpicker")*@
+    @Scripts.Render("~/bundles/selectpicker")
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-98695609-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+</head>
+<body>
+
+    
+    <header class="container-fluid header">
+        <div class="container">
+            <div class="col-md-3 logo"><img src="~/Images/images/logo.png" alt="SSSSO logo"></div>
+            <div class="col-md-9 text-right sitenm">Sri Sathya Sai Seva Organisation <span>MAHARASHTRA & GOA</span> </div>
+        </div>
+    </header>
+    <div id="nav" class="menu-holder">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav" style="margin-top:7px">
+                            <li class=""><a href="~/Home/Index">Home<span class="sr-only">(current)</span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About Us <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/Home/About">Our Inspiration</a></li>
+                                    <li><a href="~/Home/About#About-Organization">State Organisation</a></li>
+                                    <li><a href="~/Home/About#Code-of-Conduct">Code of Conduct</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Special Projects <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/Home/Projects/Aksa">Aksa</a></li>
+                                    <li><a href="~/Home/Projects/Wellness-Center">Wellness Center</a></li>
+                                    <li><a href="~/Home/Projects/Water-Projects">Water Projects</a></li>
+                                    <li><a href="~/Home/Projects/Medical-Van">Medical Van</a></li>
+                                    <li><a href="~/Home/Projects/SSSVIP">SSSVIP</a></li>
+                                    <li><a href="~/Home/Projects/Swachata-Se-Divyata-Tak">Swachta Se Divyata Tak</a></li>
+                                </ul>
+                            </li>
+                            <li>@Html.ActionLink("Events", "Events", "Home")</li>
+                            <li><a href="~/Home/Gallery">Gallery</a></li>
+                            <li><a href="~/Home/Join">Join Us</a></li>
+                            <li><a href="~/Home/Trust">Trust</a></li>
+                            <li><a href="~/Home/Contact">Contact Us</a></li>
+                        </ul>
+                        <div class="col-sm-3 col-md-3 pull-right margin-top-5">
+
+                            @using (Html.BeginForm("Search", "Home", null, FormMethod.Post, new { @class = "navbar-form", role = "search" }))
+                            {
+
+                                @*<div class="custom-search">
+                                        <input type="text" class="form-control" placeholder="Search" id="searchval" name="searchval">
+                                    </div>*@
+                                <div class="input-group">
+
+                                    <input type="text" class="form-control" placeholder="Search" id="searchval" name="searchval"> @*name="srch-term" id="srch-term"*@
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+                            }
+                            @*</form>*@
+                        </div>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+        </div>
+    </div>
+
+
+
+    @*container body-content*@
+
+    @RenderBody()
+    <hr />
+    <footer class="nb-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="about">
+                        <img src="~/Images/images/logo.png" class="img-responsive center-block" alt="SSSSO logo footer">
+
+
+                        <div class="social-media">
+                            <ul class="list-inline">
+                                <li><a href="https://www.facebook.com/Sri-Sathya-Sai-Seva-Organisation-Maharashtra-Goa-1846604082325588/" title=""><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/sssso_maharashtra_goa/" title=""><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.youtube.com/channel/UCUY-Mzyw3R8ZM7MEMIxvzIg" title=""><i class="fa fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">QUICK LINKS</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="/Home/Join" title=""><i class="fa fa-angle-double-right"></i> Join US</a></li>
+                            @*<li><a href="#" title=""><i class="fa fa-angle-double-right"></i> Find your Sai Center</a></li>*@
+                            <li><a href="/Home/Index#UpcomingEvents" title=""><i class="fa fa-angle-double-right"></i> All Upcoming Events</a></li>
+                            <li><a href="/Home/About" title=""><i class="fa fa-angle-double-right"></i> About Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">KNOW MORE</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="http://ssssoindia.org/" target="_blank" title=""><i class="fa fa-angle-double-right"></i> SSSSO India</a></li>
+                            <li><a href="http://www.srisathyasai.org.in/" target="_blank" title=""><i class="fa fa-angle-double-right"></i> Sri Sathya Sai Seva Organisation</a></li>
+                            <li><a href="https://www.srisathyasaividyavahini.org/" target="_blank" title=""><i class="fa fa-angle-double-right"></i> Vidya Vahini</a></li>
+                            <li><a href="http://www.theprasanthireporter.org/" target="_blank" title=""><i class="fa fa-angle-double-right"></i> The Prashanti Reporter</a></li>
+                            <li><a href="http://media.radiosai.org/www/" target="_blank" title=""><i class="fa fa-angle-double-right"></i> Radio Sai</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">HELP</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="/Home/Contact" title=""><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
+                            <li><a href="/Home/Join" title=""><i class="fa fa-angle-double-right"></i> Join Us</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">LOOKING FOR OUR MOBILE APP</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="https://itunes.apple.com/in/app/sai-one/id1115656949?mt=8" target="_blank" title=""><img src="~/Images/images/appstore-icon.png"></a></li>
+                            <li><a href="https://play.google.com/store/apps/details?id=org.srisathyasaimpcg.saioneregistration&hl=en" target="_blank" title=""><img src="~/Images/images/playstore-icon.png"></a></li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Copyright &copy; Sri Sathya Sai Seva Organisation 2017 - All Right Reserved.</p>
+                    </div>
+                    <div class="col-sm-6"></div>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,291 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Join Us";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+
+<style>
+    .control-label {
+        font-size: initial;
+    }
+
+    .container-fluid input {
+        color: black;
+    }
+
+    .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+        width: 280px;
+    }
+
+    label.error {
+        height: 17px;
+        margin-left: 9px;
+        padding: 1px 5px 0px 5px;
+        font-size: small;
+        color: red;
+        width:100%;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+
+
+        /**
+        Autopopulate the districts dropdown menu
+            **/
+        $.ajax({
+            url: "@Url.Action("GetDistrictList", "Join")",
+            dataType: "json",
+            type: "GET",
+            error: function (err) {
+                alert("An unexpected error has occured. Please contact your system administrator");
+            },
+            success: function (data) {
+                var optionhtml;
+                $.each(data, function (i) {
+                    optionhtml += '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                });
+                $('#place').selectpicker();
+                $('#place').html(optionhtml);
+                $('#place').selectpicker({
+                    "size": "5"
+                }).selectpicker('render').selectpicker('refresh');
+            }
+        });
+
+        //$("#join-us").validate();
+
+        $("#join-us").validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                phone: {
+                    required: true,
+                    number: true
+                },
+                place: {
+                    required: true
+                },
+                chk: {
+                    required: true,
+                    minlength: 1
+                }
+
+
+            },
+            messages: {
+                place: "Select Valid location",
+                name: "Enter Your Name",
+                email: "Enter Valid Email Address",
+                phone: "Enter Valid Phone Number",
+                chk: "Select an event category you want to be a part of",
+
+            },
+            errorPlacement: function (error, element) {
+                if (element.attr("type") == "checkbox") {
+                    error.insertAfter($(element).parents('div#question_error'));
+                }
+                else
+                    error.insertAfter(element);
+            }
+        });
+
+        $("#dialog").on('hidden.bs.modal', function () {
+            window.location.reload();
+        });
+
+        $("#join-us-submit").on('click', function (e) {
+
+            e.preventDefault();
+            if ($("#join-us").valid() == true) {
+
+                var name = $('#name').val();
+                var email = $('#email').val();
+                var phone = $('#phone').val();
+
+
+                var selectedval = $('#place option:selected').val();
+
+                var location = $("#place option[value='" + selectedval + "']").text();
+
+                var services = "";
+                if ($("#chk_ss").is(':checked') == true) {
+                    services += "Social Services;"
+                }
+
+                if ($("#chk_ms").is(':checked') == true) {
+                    services += "Medical Services;"
+                }
+
+                if ($("#chk_es").is(':checked') == true) {
+                    services += "Educational Services;"
+                }
+
+                if ($("#chk_os").is(':checked') == true) {
+                    services += "Other Services;"
+                }
+
+                //alert(name + " " + email + " " + phone + " " + location + " " + services);
+
+
+                $.ajax({
+                    url: "@Url.Action("AddJoinUsDetails", "Join")",
+                    data: { name: name, email: email, phone: phone, location: location, services: services },
+                    dataType: "json",
+                    type: "POST",
+                    error: function (err) {
+
+                        alert("An unexpected error has occured. Please contact your system administrator");
+                    },
+                    success: function (data) {
+                        //e.preventDefault();
+
+                        $('#dialog').modal();                      // initialized with defaults
+                        $('#dialog').modal({ keyboard: false });   // initialized with no keyboard
+                        $('#dialog').modal('show');                // initializes and invokes show immediately
+                    }
+                });
+            }
+
+        });
+
+    });
+</script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="dialog" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h4 class="modal-title">Delete Event Details</h4>
+                </div>*@
+            <div class="modal-body">
+                <h4>Your contact details are noted. We will contact you shortly.</h4>
+            </div>
+            <div class="modal-footer">
+                <button id="btn_close_modal" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="content-holder">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading marginT">
+                <h1>Join Us!</h1>
+            </div>
+            <div class="panel-body" >
+                <div class="col-md-12 form-group">
+                    For gratitude is an attitude, very few are blessed with. Come, join our family and lets pay our
+                    <br />
+                    gratitude in the form of service by lending ourselves and our time in the service of our fellowmen.
+                    <br /><br />
+                    For,<i>"Hands that help are Holier than lips that pray”</i> -  <b> Bhagwan Sri Sathya Sai Baba</b>
+                </div>
+
+
+
+
+                <form id="join-us">
+
+                    <div class="form-group">
+
+                        <div class="col-lg-4">
+                            <label class="control-label" for="Name">Name:</label>
+                            <input class="form-control" id="name" name="name" placeholder="Enter name" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-lg-3">
+                            <label class="control-label" for="pwd">Email Address:</label>
+                            <input class="form-control" id="email" placeholder="Enter email address" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-lg-2">
+                            <label class="control-label" for="pwd">Mobile Number:</label>
+                            <input type="text" class="form-control" id="phone" placeholder="Enter Mobile Number" name="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+
+                        <div class="col-lg-3">
+                            <label class="control-label" for="pwd">Select Location: </label>
+                            <select id="place" name="place" class="form-control" data-live-search="true" title="Select Location"></select>
+                        </div>
+                    </div>
+
+
+
+
+                    @*<div class="container-fluid" >*@
+                    <label class="col-lg-12 margin-top-30" id="question"><h4>You would like to join us in:</h4> </label>
+                    <div class="col-lg-12 form-group" id="question_error">
+                        <input id="chk_ss" type="checkbox" class="checkbox checkbox-inline" style="margin-top:-3px" value="Social Services" name="chk" />
+                        <span style="font-size:14px;color:black;"> Social Services (<small><a href="~/Home/FourWings/sociocare">know more</a></small>)</span><br />
+                        <input id="chk_ms" type="checkbox" class="checkbox checkbox-inline" style="margin-top:-3px" value="Medical Services" name="chk"><span style="font-size:14px;color:black;">
+                            Medical Services (<small><a href="~/Home/FourWings/medicare">know more</a></small>)
+                        </span><br />
+                        <input id="chk_es" type="checkbox" class="checkbox checkbox-inline" style="margin-top:-3px" value="Education Oriented Services" name="chk" /> <span style="font-size:14px;color:black;">
+                            Education Oriented Services (<small><a href="~/Home/FourWings/educare">know more</a></small>)
+                        </span><br />
+                        <input id="chk_os" type="checkbox" class="checkbox checkbox-inline " style="margin-top:-3px" value="Others" name="chk" /> <span style="font-size:14px;color:black"> Others</span>
+
+                    </div>
+
+
+                    @*</div>*@
+
+                    <div class=" row form-group">
+                        <div class="col-lg-12 text-center">
+                            <button class="btn  btn-primary" id="join-us-submit">Submit</button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function CheckInfo() {
+        //validation rules
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var mobile = $('#mobile').val();
+        var city = $('#city').val();
+        if (name == "") {
+
+            alert("It will be a great help if we can get your good name. Sairam!");
+            return false;
+
+        }
+
+        if (email == "") {
+
+            alert("It will be a great help if we can get your email to get in touch with you. Sairam!");
+            return false;
+        }
+
+        if (city == "") {
+            alert("It will be a great help if we can get your city to get in touch with you. Sairam!");
+            return false;
+        }
+    }
+</script>

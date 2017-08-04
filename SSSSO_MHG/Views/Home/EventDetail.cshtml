@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewBag.Title = "EventDetail";
+}
+
+@Styles.Render("~/Content/jssocial")
+@Styles.Render("~/Content/jssocialtheme")
+@Scripts.Render("~/bundles/jssocial")
+
+<script>
+    $(document).ready(function () {
+        var param=@ViewBag.eventid;
+        var subject;
+        $.ajax({
+            url: "@Url.Action("GetPageLoadDetails", "EventDetail")",
+            data: { id : param },
+            dataType: "json",
+
+            error: function (err) {
+                alert("An unexpected error has occured. Please contact your system administrator");
+            },
+            success: function (data) {
+
+                $.each(data, function (i) {
+                    $("#event_name").text(data[i].eventName);
+                    $("#event_date").text(data[i].eventDate);
+                    $("#event_time").text(data[i].eventTime);
+                    $("#event_location").html(data[i].eventLocation);
+                    $("#event_description").html(data[i].eventDescription);
+                    $("#event_contact").html(data[i].contact);
+                    
+                    document.getElementById("banner").src = "/Content/Images/"+data[i].img_src;
+
+                    //alert(document.getElementById("banner").src);
+                    subject= data[i].eventName +" - "+data[i].eventDate;
+                    //var uriencoded=encodeURI(subject);
+                    ////alert(uriencoded);
+                    //$('#mail').attr('href',"mailto:?Subject="+uriencoded);
+                    //$('#fb').attr('href',"https://www.facebook.com/sharer/sharer.php?u="+$(location).attr('href'));
+
+                });
+
+                //alert(subject);
+                $("#ss1").jsSocials({
+                    //showCount: false,
+                    //showLabel: false,
+                    url: $(location).attr('href'),
+                    text: subject,
+                    shares: [                        
+                        "twitter"                        
+                    ]
+                });
+
+                $("#ss2").jsSocials({
+                    //showCount: false,
+                    //showLabel: false,
+                    url: $(location).attr('href'),
+                    text: subject,
+                    shares: [
+
+                        "facebook",
+                        "googleplus"                        
+                    ]
+                });
+
+                $("#ss3").jsSocials({
+
+                    url: $(location).attr('href'),
+                    text: subject,
+                    shares: [
+
+
+                        { share: "pinterest", label: "Pin this" },
+                        "whatsapp"
+                    ]
+                });
+
+               
+
+            }
+
+        });
+
+
+    });
+</script>
+<br /><br />
+<br />
+<div class="container">
+    <div class="container-fluid">
+        <div class="row">
+            <img id="banner" src="./Content/Images/Balvikas.jpg" class="img-responsive col-sm-12">
+        </div>
+
+    </div>
+    <div class="body-content">
+        <table id="event">
+
+            <tr>
+
+                <td>
+                    <h3 id="event_name"></h3>
+                    @*<br />*@
+                </td>
+
+
+            </tr>
+            <tr>
+                <td>
+                    <strong>DATE:</strong>
+                </td>
+
+                <td rowspan="6" width="45%">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Share this page via:</div>
+                        <div class="panel-body">
+                            <table>
+                                <tr>
+                                    <td style="padding-right: 7px;"><div id="ss1"></div></td>
+                                    <td style="padding-right: 7px;"><div id="ss2"></div></td>
+                                    <td><div id="ss3"></div></td>
+                                </tr>
+                            </table>
+                            
+                            
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="event_date"></p>
+                    @*<br />*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>TIME:</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="event_time"></p>
+                    @*<br />*@
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <strong>LOCATION:</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="event_location"></p>
+                    @*<br />*@
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="4">
+                    <p id="event_description"></p>
+                    @*<br />*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>CONTACT:</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="event_contact"></p>
+                    <br />
+                </td>
+            </tr>
+        </table>
+
+       
+        
+
+        
+        
+
+    </div>
+</div>
+

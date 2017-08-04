@@ -1,0 +1,806 @@
+﻿@{
+    ViewBag.Title = "Special Projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #projectDetail1, #projectDetail2, #projectDetail3, #projectDetail4, #projectDetail5, #projectDetail6 {
+        display: none;
+    }
+
+    .link-1 m
+        transition: 0.3s ease;
+        color: #000000;
+        font-size: 20px;
+        text-decoration: none;
+        /*border-top: 4px solid #000000;
+        border-bottom: 4px solid #000000;*/
+        padding: 4px 0;
+        margin: 0 10px;
+    }
+
+        .link-1:hover {
+            border-top: 3px solid #ff6a00;
+            border-bottom: 3px solid #ff6a00;
+            padding: 4px 0;
+            color: #ff6a00;
+        }
+</style>
+<script>
+
+
+</script>
+
+
+<div class="content-holder">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading marginT">
+                <h1>Special Projects</h1>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-12 lazy-load-box">
+                    <div class="lazy-load-box col-lg-12" style="border-left:ridge #ff6a00; border-right:#ff6a00 ridge;">
+
+                        <div class="btn link-1" style="margin:0px 20px">
+                            <a href="#" class="project4">
+                                <h4>Aksa</h4>
+                            </a>
+                        </div>
+                        <div class="btn link-1" style="margin:0px 20px">
+                            <a href="#" class="project2">
+                                <h4>Wellness Center</h4>
+                            </a>
+                        </div>
+                        <div class="btn link-1" style="margin:0px 20px">
+                            <a href="#" class="project3">
+                                <h4>Water Projects</h4>
+                            </a>
+                        </div>
+                        <div class="btn link-1" style="margin:0px 20px">
+                            <a href="#" class="project1">
+                                <h4>Medical Van</h4>
+                            </a>
+                        </div>
+                        <div class="btn link-1" style="margin:0px 20px">
+                            <a href="#" class="project5">
+                                <h4>SSSVIP</h4>
+                            </a>
+                        </div>
+                        <div class="btn link-1" style="margin:0px 20px">
+                            <a href="#" class="project6">
+                                <h4>Swachta Se Divyata Tak</h4>
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Mobile Van Slider -->
+                    <div id="projectDetail1">
+                        <div class="row">
+                            <div class="col-xs-12" id="slider">
+                                <!-- Top part of the slider -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3>MEDICAL VAN</h3>
+                                    </div>
+                                    <div class="col-sm-8" id="myMobileVanCarousel">
+                                        <div class="carousel slide" id="slide-mobile-content">
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                <div class="active item" data-slide-number="0">
+                                                    <img src="~/Images/Project Images/Meidcal Van/2.jpg"alt="Medical vans of Sri Sathya Sai Mobile Medicare Project Maharashtra and Goa,Dharmakshetra">
+                                                </div>
+                                                <div class="item" data-slide-number="1">
+                                                    <img src="~/Images/Project Images/Meidcal Van/1.jpg" alt="Sri Sathya Sai Baba blessing instruments,Medical Van Maharashtra and Goa,Dharmakshetra">
+                                                </div>
+                                                <div class="item" data-slide-number="2">
+                                                    <img src="~/Images/Project Images/Meidcal Van/3.jpg" alt="Inaugration of Sri Sathya Sai Mobile Medicare Project,Maharashtra and Goa,Dharmakshetra">
+                                                </div>
+                                                <div class="item" data-slide-number="3">
+                                                    <img src="~/Images/Project Images/Meidcal Van/4.jpg" alt="Sri Sathya Sai medical van offering service to people,Maharashtra and Goa,Dharmakshetra"></div>
+                                            </div><!-- Carousel nav -->
+                                            <a class="left carousel-control" href="#myMobileVanCarousel" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                            </a>
+                                            <a class="right carousel-control" href="#myMobileVanCarousel" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" id="mobile-carousel-text"></div>
+                                    <div id="slide-mobile-content" style="display: none;">
+                                        <div id="slide-mobile-content-0">
+                                            <h2>Medical Van</h2>
+                                            <p>With the blessings of Bhagawan, the Sri Sathya Sai Mobile Medicare Project was launched in 2008. The primary object of the project has been that of improving the health by providing high quality primary and preventive healthcare. </p>
+                                        </div>
+                                        <div id="slide-mobile-content-1">
+                                            <h2>Medical Van</h2>
+                                            <p>The Project today has a fleet of 52 designer mobile clinics / dispensaries, fully furnished with state-of-the-art medical equipment and till 31st March 2016, over 38,00,000 patients from the states of Maharashtra & Goa have been treated, at their doorsteps, totally free of cost. </p>
+
+                                        </div>
+                                        <div id="slide-mobile-content-2">
+                                            <h2>Medical Van</h2>
+                                            <p>52 Medical vans operate in the villages of Maharashtra not only with the objective of primary healthcare but also impart value classes in the form of Balvikas to children. Elders are also educated on the ill effects of vices such as ‐ drinking, smoking and chewing tobacco</p>
+                                        </div>
+                                        <div id="slide-mobile-content-3">
+                                            <h2>Medical Van</h2>
+                                            <p>Approximately 39 million patients have been treated (since 2008) in 27 districts of Maharashtra & Goa covering 95 villages / slums covered by vans and additionally 450 padas, tandas, gatgram panchayats. In the FY 2015‐16, (5 lakh) people were treated at the door step through these mobile medical vans. </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/Slider-->
+                        <div class="row hidden-xs" id="slider-thumbs">
+                            <!-- Bottom switcher of slider -->
+                            <ul class="hide-bullets">
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-0"><img src="~/Images/Project Images/Meidcal Van/2.jpg" alt="Medical vans of Sri Sathya Sai Mobile Medicare Project  Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-1"><img src="~/Images/Project Images/Meidcal Van/1.jpg" alt="Sri Sathya Sai Baba blessing medical van instruments  Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-2"><img src="~/Images/Project Images/Meidcal Van/3.jpg" alt="Inaugration of Sri Sathya Sai Mobile Medicare Project  Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-3"><img src="~/Images/Project Images/Meidcal Van/4.jpg" alt="Sri Sathya Sai medical van offering service to people  Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                
+                                
+                            </ul>
+                            <script>
+                                jQuery(document).ready(function ($) {
+
+                                    $('#myMobileVanCarousel').carousel({
+                                        interval: 3000
+                                    });
+
+                                    $('#mobile-carousel-text').html($('#slide-mobile-content-0').html());
+
+                                    //Handles the carousel thumbnails
+                                    $('[id^=carousel-selector-]').click(function () {
+                                        var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+                                        var id = parseInt(id);
+
+                                        $('#myMobileVanCarousel').carousel(id);
+                                    });
+
+
+                                    // When the carousel slides, auto update the text
+                                    $('#myMobileVanCarousel').on('slid.bs.carousel', function (e) {
+                                        var carouselData = $(this).data('bs.carousel');
+                                        //var id = $('.item.active').data('slide-number');
+                                        var id = carouselData.$element.find('.item.active').data('slide-number');
+                                        $('#mobile-carousel-text').html($('#slide-mobile-content-' + id).html());
+                                    });
+
+                                    $('.carousel-control').click(function (e) {
+                                        e.stopPropagation();
+                                        var goTo = $(this).data('slide');
+                                        if (goTo == "prev") {
+                                            $('#myMobileVanCarousel').carousel('prev');
+                                        } else {
+                                            $('#myMobileVanCarousel').carousel('next');
+                                        }
+                                    });
+                                });</script>
+                        </div>
+                    </div>
+                    <!-- Wellness Center Slider -->
+                    <div id="projectDetail2">
+                        <div class="row">
+                            <div class="col-xs-12" id="slider">
+                                <!-- Top part of the slider -->
+                                <div class="row">
+                                    <div class="col-lg-12"><h3>Sri Sathya Sai Wellness Center</h3></div>
+                                    <div class="col-sm-8" id="myWellnessCarousel">
+                                        <div class="carousel slide" id="slide-mobile-content">
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                <div class="active item" data-slide-number="0">
+                                                    <img src="~/Images/Project Images/wellness centre/1.jpg" alt="Sri Sathya Sai Wellness Centre ,Maharashtra and Goa,Dharmakshetra">
+                                                </div>
+                                                <div class="item" data-slide-number="1">
+                                                    <img src="~/Images/Project Images/wellness centre/2.jpg" alt="Inaugration of Sri Sathya Sai Wellness Centre, Maharashtra and Goa,Dharmakshetra">
+                                                </div>
+                                               
+                                            </div><!-- Carousel nav -->
+                                            <a class="left carousel-control" href="#myWellnessCarousel" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                            </a>
+                                            <a class="right carousel-control" href="#myWellnessCarousel" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" id="wellness-carousel-text"></div>
+                                    <div id="slide-wellness-content" style="display: none;">
+                                        <div id="slide-wellness-content-0">
+                                            <h2>Wellness Center</h2>
+                                            <p>The SSS Wellness centre at Dharmakshetra was inaugurated on 5 th April, 2015. </p>
+                                        </div>
+                                        <div id="slide-wellness-content-1">
+                                            <h2>Wellness Center</h2>
+                                            <p>
+                                                Bhagwan has said " Man should understand that he is not merely the body, but the combination of body, mind and spirits" The prime objective of SSS Wellness centre is to promote holistic wellness of mankind. The objective of Wellness is being accomplished through yoga, motivational study circles, meditation, counselling and music therapy.
+                                                <br />
+                                                As on 2016, Wellness centre has benefited 200 people in improving their quality of Life.
+                                            </p>
+
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/Slider-->
+                        <div class="row hidden-xs" id="slider-thumbs">
+                            <!-- Bottom switcher of slider -->
+                            <ul class="hide-bullets">
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-0"><img src="~/Images/Project Images/wellness centre/1.jpg" alt="Sri Sathya Sai Wellness Centre,Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-1"><img src="~/Images/Project Images/wellness centre/2.jpg" alt="Inaugration of Sri Sathya Sai Wellness Centre, Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                               
+                            </ul>
+                            <script>
+                                jQuery(document).ready(function ($) {
+
+                                    $('#myWellnessCarousel').carousel({
+                                        interval: 5000
+                                    });
+
+                                    $('#wellness-carousel-text').html($('#slide-wellness-content-0').html());
+
+                                    //Handles the carousel thumbnails
+                                    $('[id^=carousel-selector-]').click(function () {
+                                        var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+                                        var id = parseInt(id);
+
+                                        $('#myWellnessCarousel').carousel(id);
+                                    });
+
+
+                                    // When the carousel slides, auto update the text
+                                    $('#myWellnessCarousel').on('slid.bs.carousel', function (e) {
+                                        var carouselData = $(this).data('bs.carousel');
+                                        //var id = $('.item.active').data('slide-number');
+                                        var id = carouselData.$element.find('.item.active').data('slide-number');
+                                        
+                                        $('#wellness-carousel-text').html($('#slide-wellness-content-' + id).html());
+                                    });
+
+                                    $('.carousel-control').click(function (e) {
+                                        e.stopPropagation();
+                                        var goTo = $(this).data('slide');
+                                        if (goTo == "prev") {
+                                            $('#myWellnessCarousel').carousel('prev');
+                                        } else {
+                                            $('#myWellnessCarousel').carousel('next');
+                                        }
+                                    });
+                                });</script>
+                        </div>
+                    </div>
+                    <!-- Water Project Slider -->
+                    <div id="projectDetail3">
+                        <div class="row">
+                            <div class="col-xs-12" id="slider">
+                                <!-- Top part of the slider -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3>Sri Sathya Sai Water Project</h3>
+                                    </div>
+                                    <div class="col-sm-8" id="mypalasdhareCarousel">
+                                        <div class="carousel slide" id="slide-Palasdhare-content">
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                <div class="active item" data-slide-number="0">
+                                                    <img src="~/Images/Project Images/WaterProjects/Burujwadi.jpg" alt="Sri Sathya Sai water project at Burujwadi, Maharashtra and Goa">
+                                                </div>
+                                                <div class="item" data-slide-number="1">
+                                                    <img src="~/Images/Project Images/WaterProjects/Dudhani.jpg" alt="Sri Sathya Sai water project at Doodhani, Maharashtra and Goa">
+                                                </div>
+                                                <div class="item" data-slide-number="2">
+                                                    <img src="~/Images/Project Images/WaterProjects/Kombalekdi.jpg" alt="Sri Sathya Sai water project at Kombaltekdi, Maharashtra and Goa">
+                                                </div>
+                                                <div class="item" data-slide-number="3">
+                                                    <img src="~/Images/Project Images/WaterProjects/Kondychiwadi.jpg" alt="Sri Sathya Sai water project at kondiachawadi, Maharashtra and Goa">
+                                                </div>
+                                                <div class="item" data-slide-number="4">
+                                                    <img src="~/Images/Project Images/WaterProjects/Palasdhari.JPG" alt="Sri Sathya Sai water project at Palasdhare, Maharashtra and Goa"></div>
+                                                <div class="item" data-slide-number="5">
+                                                    <img src="~/Images/Project Images/WaterProjects/MobileProjects.JPG" alt="Sri Sathya Sai Mobile Water Project, Maharashtra and Goa">
+                                                </div>
+                                            </div><!-- Carousel nav -->
+                                            <a class="left carousel-control" href="#mypalasdhareCarousel" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                            </a>
+                                            <a class="right carousel-control" href="#mypalasdhareCarousel" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" id="Palasdhare-carousel-text"></div>
+                                    <div id="slide-Palasdhare-content" style="display: none;">
+                                        <div id="slide-Palasdhare-content-0">
+                                            <h2>Burujwadi Water Project</h2>
+                                            <p>The Sri Sathya Sai Trust, Maharashtra alongwith the whole-hearted support from HDFC bank had taken up the responsibility to cater at the doorstep of 1200 villagers across 7 villages cool, drinking water.The project was successfully completed in the year April 2004.</p>
+                                        </div>
+                                        <div id="slide-Palasdhare-content-1">
+                                            <h2>Doodhani Water Project</h2>
+                                            <p>
+                                                Village Doodhani at the foothills of Matheran where the Sri Sathya Sai Seva Orgnisation, Maharashtra had undertaken a water project to benefit a population of over 1200 people .
+                                                Back in the year 2002, water was scarce and the womenfolk would take 4 hours to and fro for water. There are 40 villages surrounding this village and due to this any positive development in this area would have a positive impact on the neighbouring areas as well.
+                                            </p>
+
+                                        </div>
+                                        <div id="slide-Palasdhare-content-2">
+                                            <h2>Kombaltekdi Water Project</h2>
+                                            <p>
+                                                November 2003 had indeed brought cheer to the faces of inhabitants of 4 villages of Tarpatti, Kombaltekdi, Maldunge and Satyechiwadi situated about 20km from New Mumbai as piped drinking water reached at their door step.
+                                                The youth wing of Sri Sathya Sai Seva Organisation, Maharashtra with a view to alleviate the suffering of the villagers, took initiatives to provide these villagers with piped water. This project has benefitted more than 1000 people in the villages of Tarpatti, Kombaltekdi, Maldunge and Satyechiwadi.
+                                            </p>
+                                        </div>
+                                        <div id="slide-Palasdhare-content-3">
+                                            <h2>Kondiachawadi Water Project</h2>
+                                            <p>Until February 2011, Kondiachawadi, a village near Karjat was a village without any water resource. However the villagers witnessed a very special gift of “Water” from Sri Sathya Sai Seva Organisation, Maharashtra & Goa.The project was a joint effort with the corporate house of Mahindra & Mahindra Tractor Division and was completed in a remarkable time span of 10 months benefitting close to 215 villagers. </p>
+                                        </div>
+                                        <div id="slide-Palasdhare-content-4">
+                                            <h2>Palasdhare Water Project</h2>
+                                            <p>
+                                                Palasdhare a village close to Karjat, Maharashtra, which has approx 1800 tribals living lacked the drinking water and trudge and had to go 2 km to fetch water.
+                                                In the year 2007, Sri Sathya Sai Seva Organisation, Maharashtra & Goa took up the initiative and installed a pump, uptake pipes to the top of the hill, build an overhead storage tank on the hillock which not only brought drinking water at their doorsteps but also adopted the village and is still providing monthly visits and conducting Narayan Seva, Medical camps and inculcating human values.
+                                            </p>
+
+                                        </div>
+                                        <div id="slide-Palasdhare-content-5">
+                                            <h2>Mobile Water Project</h2>
+                                            <p>
+                                                In the year 2009, out of the 353 sub-districts, 221 had been declared as drought-hit and scarcity-hit in the state of Maharashtra
+                                                <br />
+                                                <ul>
+                                                    <li>Specialized water tanker with 18,000 litres capacity was engaged in transporting water from  nearest possible sources.</li>
+                                                    <li>Sources were identified with the help of government.</li>
+                                                    <li>Mobile water project met the immediate water needs of the villagers.</li>
+                                                    <li>Water supplied to each person - 12 litre/person/day </li>
+                                                </ul>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/Slider-->
+                        <div class="row hidden-xs" id="slider-thumbs">
+                            <!-- Bottom switcher of slider -->
+                            <ul class="hide-bullets">
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-0"><img src="~/Images/Project Images/WaterProjects/Burujwadi.jpg" alt="Sri Sathya Sai water project at Burujwadi, Maharashtra and Goa" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-1"><img src="~/Images/Project Images/WaterProjects/Dudhani.jpg" alt="Sri Sathya Sai water project at Doodhani,Maharashtra and Goa" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-2"><img src="~/Images/Project Images/WaterProjects/Kombalekdi.jpg" alt="Sri Sathya Sai water project at Kombaltekdi, Maharashtra and Goa" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-3"><img src="~/Images/Project Images/WaterProjects/Kondychiwadi.jpg" alt="Sri Sathya Sai water project at kondiachawadi, Maharashtra and Goa" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-4"><img src="~/Images/Project Images/WaterProjects/Palasdhari.jpg" alt="Sri Sathya Sai water project at Palasdhare, Maharashtra and Goa" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-5"><img src="~/Images/Project Images/WaterProjects/MobileProjects.jpg" alt="Sri Sathya Sai Mobile Water Project, Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                            </ul>
+                            <script>
+                                jQuery(document).ready(function ($) {
+
+                                    $('#mypalasdhareCarousel').carousel({
+                                        interval: 5000
+                                    });
+
+                                    $('#Palasdhare-carousel-text').html($('#slide-Palasdhare-content-0').html());
+
+                                    //Handles the carousel thumbnails
+                                    $('[id^=carousel-selector-]').click(function () {
+                                        var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+                                        var id = parseInt(id);
+
+                                        $('#mypalasdhareCarousel').carousel(id);
+                                    });
+
+
+                                    // When the carousel slides, auto update the text
+                                    $('#mypalasdhareCarousel').on('slid.bs.carousel', function (e) {
+                                        var carouselData = $(this).data('bs.carousel');
+                                        //var id = $('.item.active').data('slide-number');
+                                        var id = carouselData.$element.find('.item.active').data('slide-number');
+                                        $('#Palasdhare-carousel-text').html($('#slide-Palasdhare-content-' + id).html());
+                                    });
+
+                                    $('.carousel-control').click(function (e) {
+                                        e.stopPropagation();
+                                        var goTo = $(this).data('slide');
+                                        if (goTo == "prev") {
+                                            $('#mypalasdhareCarousel').carousel('prev');
+                                        } else {
+                                            $('#mypalasdhareCarousel').carousel('next');
+                                        }
+                                    });
+                                });</script>
+                        </div>
+                    </div>
+                    <!--Aksa-->
+                    <div id="projectDetail4">
+                        <div class="row">
+                            <div class="col-xs-12" id="slider">
+                                <!-- Top part of the slider -->
+                                <div class="row">
+                                    <div class="col-lg-12"><h3>INSTITUTE OF AGRICULTURE AND BIOTECHNOLOGY, AKSA</h3></div>
+                                    <div class="col-sm-8" id="myaksaCarousel">
+                                        <div class="carousel slide" id="slide-aksa-content">
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                <div class="active item" data-slide-number="0">
+                                                    <img src="~/Images/Project Images/aksa project/0.jpg" alt="Sri Sathya Sai Institute of agriculture and biotechnology, Maharashtra and Goa,Dharmakshetra" />
+                                                </div>
+                                                <div class="item" data-slide-number="1">
+                                                    <img src="~/Images/Project Images/aksa project/1.jpg" alt="Sri Satya Sai Institute of AKSA training Centre, Maharashtra and Goa,Dharmakshetra">
+                                                </div>
+                                                <div class="item" data-slide-number="2">
+                                                    <img src="~/Images/Project Images/aksa project/2.jpg" alt="Trainers and Students at Sri Sathya Sai AKSA Centre, Maharashtra and Goa,Dharmakshetra">
+                                                </div>
+
+                                            </div><!-- Carousel nav -->
+                                            <a class="left carousel-control" href="#myaksaCarousel" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                            </a>
+                                            <a class="right carousel-control" href="#myaksaCarousel" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" id="aksa-carousel-text"></div>
+                                    <div id="slide-aksa-content" style="display: none;">
+                                        <div id="slide-aksa-content-0">
+                                            <h2>Aksa Project</h2>
+                                            <p>A Research and Training Center for Rural Development based Agriculture and Biotechnology</p>
+                                        </div>
+                                        <div id="slide-aksa-content-1">
+                                            <h2>Aksa Project</h2>
+                                            <p>
+                                                This center provides free ‘30 day’ courses to young unemployed rural farmers.
+                                                <br />The project aims to reverse the trend of rural youth turning increasingly to cities in search of employment by equipping them with self - employment initiatives.
+
+                                            </p>
+
+                                        </div>
+                                        <div id="slide-aksa-content-2">
+                                            <h2>Aksa Project</h2>
+                                            <p>As of March 2014,over <b>935 farmers</b> from remote corners of Maharashtra have been trained in 49 batches.</p>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/Slider-->
+                        <div class="row hidden-xs" id="slider-thumbs">
+                            <!-- Bottom switcher of slider -->
+                            <ul class="hide-bullets">
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-0"><img src="~/Images/Project Images/aksa project/0.jpg" alt="Sri Sathya Sai institute of agriculture and biotechnology, Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-1"><img src="~/Images/Project Images/aksa project/1.jpg" alt="Sri Satya Sai Institute of AKSA training Centre class, Maharashtra and Goa,Dharmakshetra=" img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+
+                                    <a class="thumbnail" id="carousel-selector-2"><img src="~/Images/Project Images/aksa project/2.jpg" alt="Trainers and Students at Sri Sathya Sai AKSA Centre, Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+
+
+                            </ul>
+                            <script>
+                                jQuery(document).ready(function ($) {
+
+                                    $('#myaksaCarousel').carousel({
+                                        interval: 5000
+                                    });
+
+                                    $('#aksa-carousel-text').html($('#slide-aksa-content-0').html());
+
+                                    //Handles the carousel thumbnails
+                                    $('[id^=carousel-selector-]').click(function () {
+                                        var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+                                        var id = parseInt(id);
+
+                                        $('#myaksaCarousel').carousel(id);
+                                    });
+
+
+                                    // When the carousel slides, auto update the text
+                                    $('#myaksaCarousel').on('slid.bs.carousel', function (e) {
+                                        var carouselData = $(this).data('bs.carousel');
+                                        //var id = $('.item.active').data('slide-number');
+                                        var id = carouselData.$element.find('.item.active').data('slide-number');
+                                        $('#aksa-carousel-text').html($('#slide-aksa-content-' + id).html());
+                                    });
+
+                                    $('.carousel-control').click(function (e) {
+                                        e.stopPropagation();
+                                        var goTo = $(this).data('slide');
+                                        if (goTo == "prev") {
+                                            $('#myaksaCarousel').carousel('prev');
+                                        } else {
+                                            $('#myaksaCarousel').carousel('next');
+                                        }
+                                    });
+                                });</script>
+                        </div>
+                    </div>
+                    <!--SSSVIP-->
+                    <div id="projectDetail5">
+                        <div class="row">
+                            <div class="col-xs-12" id="slider">
+                                <!-- Top part of the slider -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3>SRI SATHYA SAI VILLAGE INTEGRATION PROGRAMME [SSSVIP]</h3>
+                                    </div>
+                                    <div class="col-sm-8" id="mySSSVIPCarousel">
+                                        <div class="carousel slide" id="slide-SSSVIP-content">
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                <div class="active item" data-slide-number="0">
+                                                    <img src="~/Images/Project Images/SSSVIP/1.jpg" alt="Narayan Seva under Sri Sathya Sai Village Integrated Program, Maharashtra and Goa,Dharmakshetra">
+                                                </div>
+                                                <div class="item" data-slide-number="1">
+                                                    <img src="~/Images/Project Images/SSSVIP/3.jpg" alt="Balvikas under Sri Sathya Sai Village Integrated Program, Maharashtra and Goa,Dharmakshetra">
+                                                </div>
+                                                <div class="item" data-slide-number="2">
+                                                    <img src="~/Images/Project Images/SSSVIP/4.jpg" alt="Medical Service under Sri Sathya Sai Village Integrated Program, Maharashtra and Goa,Dharmakshetra">
+                                                </div>
+                                                
+                                            </div><!-- Carousel nav -->
+                                            <a class="left carousel-control" href="#mySSSVIPCarousel" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                            </a>
+                                            <a class="right carousel-control" href="#mySSSVIPCarousel" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" id="SSSVIP-carousel-text"></div>
+                                    <div id="slide-SSSVIP-content" style="display: none;">
+                                        <div id="slide-SSSVIP-content-0">
+                                            <h2>SSSVIP</h2>
+                                            <p>Bhagwan Sri Sathya Sai Baba envisaged the self sufficieny of the villages in India and thus the SSSVIP was conceptualised.  </p>
+                                        </div>
+                                        <div id="slide-SSSVIP-content-1">
+                                            <h2>SSSVIP</h2>
+                                            <p>
+                                                After the initial adoption of the village, the ‘7 Care Model includes-Individual Care, Educare, Medicare, Sociocare, Spiritual Care, Econocare and Agricare’.                                    <br />
+                                            </p>
+
+                                        </div>
+                                        <div id="slide-SSSVIP-content-2">
+                                            <h2>SSSVIP</h2>
+                                            <p>The common programme adopted in 2009 to define a ‘model village’ includes - providing sanitation facilities, community centre[Gramin Seva Kendra], vocational training for youth, Bal Vikas for children and Mother & Child Care for women. Close to 61 villages are adopted under the SSSVIP</p>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/Slider-->
+                        <div class="row hidden-xs" id="slider-thumbs">
+                            <!-- Bottom switcher of slider -->
+                            <ul class="hide-bullets">
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-0"><img src="~/Images/Project Images/SSSVIP/1.jpg" alt="Narayan Seva under Sri Sathya Sai Village Integrated Program , Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-1"><img src="~/Images/Project Images/SSSVIP/3.jpg" alt="Balvikas under Sri Sathya Sai Village Integrated Program, Maharashtra and Goa,Dharmakshetra" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-2"><img src="~/Images/Project Images/SSSVIP/4.jpg" alt="Medical Service under Sri Sathya Sai Village Integrated Program, Maharashtra and Goa,Dharmakshetra" class=" img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                
+                            </ul>
+                            <script>
+                                jQuery(document).ready(function ($) {
+
+                                    $('#mySSSVIPCarousel').carousel({
+                                        interval: 5000
+                                    });
+
+                                    $('#SSSVIP-carousel-text').html($('#slide-SSSVIP-content-0').html());
+
+                                    //Handles the carousel thumbnails
+                                    $('[id^=carousel-selector-]').click(function () {
+                                        var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+                                        var id = parseInt(id);
+
+                                        $('#mySSSVIPCarousel').carousel(id);
+                                    });
+
+
+                                    // When the carousel slides, auto update the text
+                                    $('#mySSSVIPCarousel').on('slid.bs.carousel', function (e) {
+                                        var carouselData = $(this).data('bs.carousel');
+                                        //var id = $('.item.active').data('slide-number');
+                                        var id = carouselData.$element.find('.item.active').data('slide-number');
+                                        $('#SSSVIP-carousel-text').html($('#slide-SSSVIP-content-' + id).html());
+                                    });
+
+                                    $('.carousel-control').click(function (e) {
+                                        e.stopPropagation();
+                                        var goTo = $(this).data('slide');
+                                        if (goTo == "prev") {
+                                            $('#mySSSVIPCarousel').carousel('prev');
+                                        } else {
+                                            $('#mySSSVIPCarousel').carousel('next');
+                                        }
+                                    });
+                                });</script>
+                        </div>
+                    </div>
+                    <!--Swachata Se Divyata Tak-->
+                    <div id="projectDetail6">
+                        <div class="row">
+                            <div class="col-xs-12" id="slider">
+                                <!-- Top part of the slider -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3>Swachata Se Divyata Tak</h3>
+                                    </div>
+                                    <div class="col-sm-8" id="mySwachataCarousel">
+                                        <div class="carousel slide" id="slide-Swachata-content">
+                                            <!-- Carousel items -->
+                                            <div class="carousel-inner">
+                                                <div class="active item" data-slide-number="0">
+                                                    <img src="~/Images/Project Images/Swachta/swach bharat 1.jpg" alt="Swach Bharat Abhiyan by Sri Satya Sai Seva Organisation, Maharashtra and Goa">
+                                                </div>
+                                                <div class="item" data-slide-number="1">
+                                                    <img src="~/Images/Project Images/Swachta/swach bharat 2.jpg" alt="Swachata se Divyata tak in schools and colleges, Maharashtra and Goa">
+                                                </div>
+                                                <div class="item" data-slide-number="2">
+                                                    <img src="~/Images/Project Images/Swachta/swach 3.jpg" alt="Swach Bharat Abhiyan following Swachata Se Divyata Tak, Maharashtra and Goa">
+                                                </div>
+                                            </div><!-- Carousel nav -->
+                                            <a class="left carousel-control" href="#mySwachataCarousel" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                            </a>
+                                            <a class="right carousel-control" href="#mySwachataCarousel" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" id="Swachata-carousel-text"></div>
+                                    <div id="slide-Swachata-content" style="display: none;">
+                                        <div id="slide-Swachata-content-0">
+                                            <h2>Swachata Se Divyata Tak</h2>
+                                            <p>The Sri Sathya Sai Seva Organisation India (SSSSO India) - from Prasanthi Nilayam, Puttaparthi, Andhra Pradesh announced the launch of their nationwide cleanliness programme called “Swachata Se Divyata Tak” on the eve of Gandhi Jayanthi, i.e. 2nd October, 2016 in Mumbai which concluded on the “Avatar Declaration Day” i.e. on 20th October, 2016. </p>
+                                        </div>
+                                        <div id="slide-Swachata-content-1">
+                                            <h2>Swachata Se Divyata Tak</h2>
+                                            <p>
+                                                This initiative had been undertaken in order to promote cleanliness across the country. On the same guidelines the drive was conducted across various towns, villages and metro cities of Maharashtra & Goa.
+                                            </p>
+
+                                        </div>
+                                        <div id="slide-Swachata-content-2">
+                                            <h2>Swachata Se Divyata Tak</h2>
+                                            <p>A Total of 29024 Sathya Sai Seva volunteers participated in this magnum opus across the state of Maharashtra & Goa. </p>
+                                            <br />The Hon'ble Prime Minister of India  Shri Narendra Modi today extended his support for the mega Nationwide project undertaken by Sri Sathya Sai Seva Organisations India (SSSSO India) on cleanliness.
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/Slider-->
+                        <div class="row hidden-xs" id="slider-thumbs">
+                            <!-- Bottom switcher of slider -->
+                            <ul class="hide-bullets">
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-0"><img src="~/Images/Project Images/Swachta/swach bharat 1.jpg" alt="Swach Bharat Abhiyan by Sri Satya Sai Seva Organisation, Maharashtra and Goa" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-1"><img src="~/Images/Project Images/Swachta/swach bharat 2.jpg" alt="Swachata se Divyata tak in schools and colleges, Maharashtra and Goa" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                <li class="col-sm-2">
+                                    <a class="thumbnail" id="carousel-selector-2"><img src="~/Images/Project Images/Swachta/swach 3.jpg" alt="Swach Bharat Abhiyan following Swachata Se Divyata Tak, Maharashtra and Goa" class="img-thumbnail" width="170" height="50"></a>
+                                </li>
+                                
+                            </ul>
+                            <script>
+                                jQuery(document).ready(function ($) {
+
+                                    $('#mySwachataCarousel').carousel({
+                                        interval: 5000
+                                    });
+
+                                    $('#Swachata-carousel-text').html($('#slide-Swachata-content-0').html());
+
+                                    //Handles the carousel thumbnails
+                                    $('[id^=carousel-selector-]').click(function () {
+                                        var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+                                        var id = parseInt(id);
+
+                                        $('#mySwachataCarousel').carousel(id);
+                                    });
+
+
+                                    // When the carousel slides, auto update the text
+                                    $('#mySwachataCarousel').on('slid.bs.carousel', function (e) {
+                                        var carouselData = $(this).data('bs.carousel');
+                                        //var id = $('.item.active').data('slide-number');
+                                        var id = carouselData.$element.find('.item.active').data('slide-number');
+                                        $('#Swachata-carousel-text').html($('#slide-Swachata-content-' + id).html());
+                                    });
+
+                                    $('.carousel-control').click(function (e) {
+                                        e.stopPropagation();
+                                        var goTo = $(this).data('slide');
+                                        if (goTo == "prev") {
+                                            $('#mySwachataCarousel').carousel('prev');
+                                        } else {
+                                            $('#mySwachataCarousel').carousel('next');
+                                        }
+                                    });
+                                });</script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>am
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        var searched = "@ViewBag.SearchedProject";
+
+        if (searched == "Aksa") {
+
+            $('#projectDetail4').show();
+        }
+        else if (searched == "Wellness-Center") {
+
+            $('#projectDetail2').show();
+        }
+        else if (searched == "Water-Projects") {
+
+            $('#projectDetail3').show();
+        }
+        else if (searched == "Medical-Van") {
+
+            $('#projectDetail1').show();
+        }
+        else if (searched == "SSSVIP") {
+
+            $('#projectDetail5').show();
+        }
+        else if (searched == "Swachata-Se-Divyata-Tak") {
+
+            $('#projectDetail6').show();
+        }
+        $('[class^="project"]').on('click', function (e) {
+            e.preventDefault();
+
+            var numb = this.className.replace('project', '');
+
+            $('[id^="projectDetail"]').hide();
+            $('#projectDetail' + numb).show();
+        });
+    });
+
+</script>
+
+
+

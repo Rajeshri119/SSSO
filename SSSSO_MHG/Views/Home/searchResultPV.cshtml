@@ -1,0 +1,30 @@
+﻿@model List<SSSSO_MHG.Models.SearchClass>
+@*div for search results*@
+@{
+    List<SSSSO_MHG.Models.SearchClass> searchList = Model;
+}
+<h3 id="SearchResultHeading">Search Results</h3>
+<ul class="list-group col-md-10 col-md-offset-1" id="SearchList">
+    @if (searchList.Count < 1)
+    {
+        <li>No Results</li>
+    }
+    else
+    {
+        foreach (var item in searchList)
+        {
+            <li class="list-group-item">
+                <a href=@item.URL>
+                    <div style="font-size:large">@item.Title</div>
+                    <div style="font-size:medium">@item.Description</div>
+                    <div style="font-size:small">@item.URL</div>
+
+                </a>
+            </li>
+
+
+        }
+    }
+
+</ul>
+

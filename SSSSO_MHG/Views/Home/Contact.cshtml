@@ -1,0 +1,322 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+
+@Styles.Render("~/Content/selectpicker")
+@Scripts.Render("~/bundles/selectpicker")
+
+
+
+
+<script>
+    $(document).ready(function () {
+        var district_id = '';
+        var samithi_id = '';
+        var samithi_name = '';
+        var district_name = '';
+
+        $('#cont_district').wrap('<div id="hide" style="display:none" />');
+        $('#cont_samithi').wrap('<div id="hides" style="display:none" />');
+
+        $.ajax({
+            url: "@Url.Action("GetStateDetails", "Contacts")",
+
+            dataType: "json",
+            type: "POST",
+            error: function (err) {
+                alert("An unexpected error has occured. Please contact your system administrator");
+            },
+            success: function (data) {
+                var trHTML = '';
+                $.each(data, function (i) {
+                    trHTML += "<tr><td>" + data[i].index + "</td>" +
+                        "<td>" + data[i].designation + "</td>" +
+                    "<td>" + data[i].name + "</td>" +
+                    "<td>" + data[i].email + "</td>" +
+                    "<td>" + data[i].phone + "</td></tr>";
+                });
+
+                $('#contact_statelevel').append(trHTML);
+            }
+        });
+
+        /**
+       Autopopulate the districts dropdown menu
+           **/
+        $.ajax({
+            url: "@Url.Action("GetDistrictList", "Events")",
+            dataType: "json",
+            type: "GET",
+            error: function (err) {
+                alert("An unexpected error has occured. Please contact your system administrator");
+            },
+            success: function (data) {
+                var optionhtml;
+
+                $.each(data, function (i) {
+                    //var menudpdwn_html = '<li role="presentation" id="' + data[i].Value + '"><a role="menuitem" href="#">' + data[i].Text + '</a></li>';
+                    if (data[i].Value != '0')
+                        optionhtml += '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+                    //$("#district_menu").append(optionhtml);
+
+                });
+                $('#district').selectpicker();
+                $('#district').html(optionhtml);
+                $('#district').selectpicker('render').selectpicker('refresh');
+            }
+        });
+
+        /**
+        //This function populates the value of samithi dropdown when a district is selected
+        **/
+        $('#district').on('change', function () {
+
+            var selectedval = $('#district option:selected').val();
+            district_id = selectedval;
+            district_name = $('#district').find("option:selected").text();
+            samithi_id = "";
+            $('#samithi').empty();
+
+            $.ajax({
+                url: "@Url.Action("GetSamithiList", "Events")",
+                data: { selectedValue: selectedval },
+                dataType: "json",
+                type: "POST",
+                error: function (err) {
+                    alert("An unexpected error has occured. Please contact your system administrator");
+                },
+                success: function (data) {
+                    var optionhtml;
+                    $.each(data, function (i) {
+                        if (data[i].Value != '0')
+                            optionhtml += '<option value="' + data[i].Value + '">' + data[i].Text + '</option>';
+
+
+                    });
+                    $('#samithi').selectpicker();
+                    $('#samithi').html(optionhtml);
+                    $('#samithi').selectpicker('render').selectpicker('refresh');
+
+                }
+            });
+        });
+
+
+        $('#samithi').on('change', function () {
+
+            var selectedval = $('#samithi option:selected').val();
+
+            samithi_id = selectedval;
+
+            samithi_name = $('#samithi').find("option:selected").text();
+        });
+
+        jQuery("#Search").on('click', function () {
+
+
+            var district = district_id;
+            var samithi = samithi_id;
+
+
+
+
+
+            if (district != 0) {
+                $('#dis_label').text(district_name + " Level:");
+                $('#contact_districtlevel tbody').remove();
+                $.ajax({
+                    url: "@Url.Action("GetDistrictDetails", "Contacts")",
+                    data: { district_id: district },
+                    dataType: "json",
+                    type: "POST",
+                    error: function (err) {
+                        alert("An unexpected error has occured. Please contact your system administrator");
+                    },
+                    success: function (data) {
+                        var trHTML = '<tbody>';
+                        $.each(data, function (i) {
+                            trHTML += "<tr><td>" + data[i].index + "</td>" +
+                                "<td>" + data[i].designation + "</td>" +
+                            "<td>" + data[i].name + "</td>" +
+                            "<td>" + data[i].email + "</td>" +
+                            "<td>" + data[i].phone + "</td></tr>";
+                        });
+                        trHTML += '</tbody>';
+                        $('#contact_districtlevel').append(trHTML);
+                        $('#hide').css('display', 'block');
+                    }
+                });
+            }
+
+            if (samithi != '') {
+                if (samithi != '0')
+                    $('#sam_label').text(samithi_name + " Samithi Level:");
+                else
+                    $('#sam_label').text("Samithi Level:");
+                $('#contact_samithilevel tbody').remove();
+                $.ajax({
+                    url: "@Url.Action("GetSamithiDetails", "Contacts")",
+                    data: {
+                        district_id: district,
+                        samithi_id: samithi
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    error: function (err) {
+                        alert("An unexpected error has occured. Please contact your system administrator");
+                    },
+                    success: function (data) {
+                        var trHTML = '<tbody>';
+                        $.each(data, function (i) {
+                            trHTML += "<tr><td>" + data[i].index + "</td>" +
+                                "<td>" + data[i].designation + "</td>" +
+                            "<td>" + data[i].name + "</td>" +
+                            "<td>" + data[i].email + "</td>" +
+                            "<td>" + data[i].phone + "</td></tr>";
+                        });
+                        trHTML += '</tbody>';
+                        $('#contact_samithilevel').append(trHTML);
+                        $('#hides').css('display', 'block');
+                    }
+                });
+            }
+            else {
+                //$('#cont_samithi').wrap('<div id="hides" style="display:none" />');
+                $('#hides').css('display', 'none');
+            }
+            window.location.href = '#cont_samithi';
+            //window.scrollTo(0, 0);
+        });
+
+    });
+</script>
+
+
+
+<div class="content-holder">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading marginT">
+                <h1>Contact us</h1>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    @*container for the form*@
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><b>Search for the co-ordinators of a specific district/samithi</b></div>
+                        <div class="panel-body col-lg-12">
+                            <form>
+                                <div class="form-group row">
+                                    @*contains the district label and dropdown for district*@
+                                    <label for="district" class="col-md-2">District:</label>
+                                    <div class="dropdown col-md-3">
+                                        @*<button id="district" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                                All Districts
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul id="district_menu" class="dropdown-menu pre-scrollable"></ul>*@                 @*list will be autopopulated which document loads using ajax*@
+
+                                            <select id="district" selectontab="true" data-live-search="true" class="selectpicker" title="Select district"></select>
+
+                                        </div>
+
+
+
+                                        @*contains the samithi label and dropdown for samithi*@
+                                        <label for="samithi" class="col-md-2">Samithi:</label>
+                                        <div class="dropdown col-md-3">
+                                            @*<button id="samithi" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                                    All Samithies
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul id="samithi_menu" class="dropdown-menu pre-scrollable"></ul>   *@
+
+
+                                            <select id="samithi" selectontab="true" data-live-search="true" class="selectpicker" title="Select Samithi"></select>
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            @*button for finding*@
+                                        <button id="Search" type="button" class="btn btn-primary">Search contacts</button>
+                                    </div>
+                                </div>
+
+
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="cont_samithi">
+
+                    @*Container for the contact result*@
+                    <h3 id="sam_label"></h3></br>
+                    <div class="table-responsive ">
+                        <table id="contact_samithilevel" class="table table-bordered " cellspacing="0" width="100%">
+                            <thead>
+                                <tr role="columnheader">
+                                    <th>Sr no.</th>
+                                    <th>Designation</th>
+                                    <th>Co-ordinator Name</th>
+                                    <th>Co-ordinator email address</th>
+                                    <th>Co-ordinator contact number</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="cont_district">
+
+                    @*Container for the contact result*@
+                    <h3 id="dis_label"></h3></br>
+                    <div class="table-responsive ">
+                        <table id="contact_districtlevel" class="table table-bordered " cellspacing="0" width="100%">
+                            <thead>
+                                <tr role="columnheader">
+                                    <th>Sr no.</th>
+                                    <th>Designation</th>
+                                    <th>Co-ordinator Name</th>
+                                    <th>Co-ordinator email address</th>
+                                    <th>Co-ordinator contact number</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <div>
+                    @*Container for the contact result*@
+                    <h3>State Level:</h3></br>
+                    <div class="table-responsive ">
+                        <table id="contact_statelevel" class="table table-bordered " cellspacing="0" width="100%">
+
+                            <tr role="columnheader">
+                                <th>Sr no.</th>
+                                <th>Designation</th>
+                                <th>Co-ordinator Name</th>
+                                <th>Co-ordinator email address</th>
+                                <th>Co-ordinator contact number</th>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>`
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

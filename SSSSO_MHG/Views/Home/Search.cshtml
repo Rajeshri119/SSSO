@@ -1,0 +1,246 @@
+﻿@model List<List<SSSSO_MHG.Models.SearchClass>>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>*@
+
+<script>
+    //$("#SearchButton").click(function () {
+    $(document).ready(function () {
+
+
+        //    $("#SearchResultHeading").hide();
+        //    $("#EventsHeading").hide();
+
+        //})
+
+
+        //$(document).on('click', '#SearchButton', function () {
+        //    //SearchText is the id of the textbox where user enters search text
+        // var searchText = document.getElementById("SearchTextBox").value;
+
+        //document.getElementById("SearchText").value;
+
+        jQuery(function () {
+
+            jQuery("#searchPgntnUL a.page_num").click(function (e) {
+
+                //loop all anchors and remove the current_page class
+                jQuery("#searchPgntnUL a.current_page").each(function () {
+                    jQuery(this).removeClass("current_page");
+                });
+                //add current_page class to the item that you clicked
+                jQuery(this).addClass("current_page");
+
+                //stop the page from trying to refresh - which is default click behavior
+                e.preventDefault();
+
+            });
+
+        });
+
+        jQuery(function () {
+
+            jQuery("#eventPgntnUL a.page_num").click(function (e) {
+
+                //loop all anchors and remove the current_page class
+                jQuery("#eventPgntnUL a.current_page").each(function () {
+                    jQuery(this).removeClass("current_page");
+                });
+                //add current_page class to the item that you clicked
+                jQuery(this).addClass("current_page");
+
+                //stop the page from trying to refresh - which is default click behavior
+                e.preventDefault();
+
+            });
+
+        });
+
+    });
+
+    function PageSearchFill(indexIn) {
+
+        $.ajax({
+            url: "@Url.Action("searchResultPV", "Home")",
+            data: { index: indexIn /* add other additional parameters */ },
+            cache: false,
+            type: "POST",
+            dataType: "html",
+            success: function (data, textStatus, XMLHttpRequest) {
+                $("#SearchList").html(data);
+            }
+        });
+
+        $('#searchPgntnUL').find('a').each(function () {
+            if ($(this).attr('href'));
+        });
+
+    }
+
+    function PageEventSearchFill(indexIn) {
+
+        $.ajax({
+            url: "@Url.Action("eventSearchPV", "Home")",
+            data: { index: indexIn /* add other additional parameters */ },
+            cache: false,
+            type: "POST",
+            dataType: "html",
+            success: function (data, textStatus, XMLHttpRequest) {
+                $("#EventSearchList").html(data);
+            }
+        });
+    }
+</script>
+
+<style>
+    a.page_num {
+        font-size: 12px;
+        color: #843694;
+        padding: 5px 10px;
+        display: inline-block;
+        border: 1px solid #843694;
+        text-decoration: none;
+        margin: 0;
+    }
+
+        a.page_num:hover, a.current_page {
+            color: #ff6a00 !important;
+            background-color: #ff6a00;
+            border: 1px solid #843694;
+        }
+</style>
+<br /><br /><br /><br />
+
+@{
+    List<SSSSO_MHG.Models.SearchClass> searchList = Model[0];
+    List<SSSSO_MHG.Models.SearchClass> eventList = Model[1];
+    List<SSSSO_MHG.Models.SearchClass> completeSearchList = Session["searchList"] as List<SSSSO_MHG.Models.SearchClass>;
+    List<SSSSO_MHG.Models.SearchClass> completeEventList = Session["eventList"] as List<SSSSO_MHG.Models.SearchClass>;
+
+}
+@*<h2>Search</h2>*@
+@* wanted to show the searched text in the textbox and give an option of searching here on this page, additionally other than the search on
+    menu bar. Not working so...hidden*@
+<div class="row" hidden>
+    <div class="col-md-8">
+        <input type="text" id="SearchText" value="@ViewBag.SearchText" style="width:100%;max-width:1000px" />&nbsp
+    </div>
+    <div class="col-md-2" id="SearchButtonDiv" style="color:black;margin:20%">
+        <button id="SearchButton" class="col-md-4 btn-block">Search</button>
+    </div>
+</div>
+
+<br /><br />
+
+@*div for search results*@
+<div class="row" style="color:black;margin:30px" id="SearchList">
+    <h3 id="SearchResultHeading">Search Results</h3>
+    <ul class="list-group col-md-10 col-md-offset-1">
+        @if (searchList.Count < 1)
+        {
+            <li>No Results</li>
+        }
+        else
+        {
+            foreach (var item in searchList)
+            {
+                <li class="list-group-item">
+                    <a href=@item.URL>
+                        <div style="font-size:large">@item.Title</div>
+                        <div style="font-size:medium">@item.Description</div>
+                        <div style="font-size:small">@item.URL</div>
+
+                    </a>
+                </li>
+
+
+            }
+        }
+
+    </ul>
+
+</div>
+<div class="row" style="margin:30px">
+    <div class="col-md-1"></div>
+    <ul class="pagination " id="searchPgntnUL">
+        @{
+            int index = 0;
+            while (index < completeSearchList.Count)
+            {
+                index = index + 5;
+                <li>
+                    @{int indE=index/5;}
+                    @if (index == 5)
+                    {
+                        <a href="#" class="page_num current_page" onclick="PageSearchFill('@index')">@indE</a>
+                    }
+                    else
+                    {
+                        <a href="#" class="page_num" onclick="PageSearchFill('@index')">@indE</a>
+                    }
+                </li>
+
+            }
+        }
+    </ul>
+</div>
+
+
+
+@*div for events search*@
+
+<div class="row" style="color:black;margin-left:30px" id="EventSearchList">
+    <h3 id="EventsHeading">Events</h3>
+
+    <ul class="list-group col-md-10 col-md-offset-1">
+        @if (eventList.Count < 1)
+        {
+            <li>No Results</li>
+        }
+        else
+        {
+            foreach (var item in eventList)
+            {
+
+                <li class="list-group-item">
+                    <a href="@Url.Action("EventDetail", new { id = item.ID+item.StartDate.ToString("ddMMyyyy") })">
+                        <div style="font-size:large">@item.Title</div>
+                        <div style="font-size:medium">@Html.Raw(item.Description)</div>
+                        <div style="font-size:small">@item.URL</div>
+
+
+                    </a>
+                </li>
+
+            }
+
+        }
+    </ul>
+
+</div>
+
+
+<div class="row" style="margin:30px">
+    <div class="col-md-1"></div>
+    <ul class="pagination" id="eventPgntnUL">
+        @{
+            int indexE = 0;
+            while (indexE < completeEventList.Count)
+            {
+                indexE = indexE + 5;
+                <li>
+                    @{int ind=indexE/5;}
+                    @if (indexE == 5)
+                    {  <a href="#" class="page_num current_page" onclick="PageEventSearchFill('@indexE')">@ind</a>}
+
+                    else
+                    {   <a href="#" class="page_num" onclick="PageEventSearchFill('@indexE')">@ind</a> }
+
+                </li>
+
+            }
+        }
+    </ul>
+</div>

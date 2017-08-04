@@ -1,0 +1,32 @@
+﻿
+@model List<SSSSO_MHG.Models.SearchClass>
+@*div for search results*@
+@{
+    List<SSSSO_MHG.Models.SearchClass> eventList = Model;
+}
+<h3 id="SearchResultHeading">Events</h3>
+<ul class="list-group col-md-10 col-md-offset-1" id="SearchList">
+    @if (eventList.Count < 1)
+    {
+        <li>No Results</li>
+    }
+    else
+    {
+        foreach (var item in eventList)
+        {
+
+            <li class="list-group-item">
+                <a href="@Url.Action("EventDetail", new { id = item.ID+item.StartDate.ToString("ddMMyyyy") })">
+                    <div style="font-size:large">@item.Title</div>
+                    <div style="font-size:medium">@Html.Raw(item.Description)</div>
+                    <div style="font-size:small">@item.URL</div>
+
+
+                </a>
+            </li>
+
+        }
+    }
+
+</ul>
+
